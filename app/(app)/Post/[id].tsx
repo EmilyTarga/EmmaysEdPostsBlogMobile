@@ -4,8 +4,10 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { TextInput, View } from 'react-native';
+import { useSession } from '@/app/ctx';
 
 export default function Post() {
+  const { session } = useSession();
   const { id } = useLocalSearchParams();
 
   interface Post {
@@ -131,21 +133,28 @@ export default function Post() {
         >
           <Text style={styles.text}>Back</Text>
         </Pressable>
-        <Pressable
-          onPress={
-            handleSubmit(onSubmit)}
-          style={styles.buttonSave}
-        >
-          <Text style={styles.text}>Save</Text>
-        </Pressable>
 
-        <Pressable
-          onPress={
-            () => onDelete()}
-          style={styles.buttonDelete}
-        >
-          <Text style={styles.text}>Delete</Text>
-        </Pressable>
+        {
+          session?.IsAdmin &&
+          <>
+            <Pressable
+              onPress={
+                handleSubmit(onSubmit)}
+              style={styles.buttonSave}
+            >
+              <Text style={styles.text}>Save</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={
+                () => onDelete()}
+              style={styles.buttonDelete}
+            >
+              <Text style={styles.text}>Delete</Text>
+            </Pressable>
+
+          </>
+        }
 
       </SafeAreaView>
     </SafeAreaProvider>

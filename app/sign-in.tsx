@@ -26,6 +26,7 @@ export default function SignIn() {
         <View style={styles.viewInput}>
           <Text style={styles.label}>Password</Text>
           <TextInput
+            secureTextEntry={true}
             style={styles.input}
             onChangeText={setPassword}
             value={password}

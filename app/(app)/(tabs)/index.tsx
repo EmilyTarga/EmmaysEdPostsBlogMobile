@@ -8,7 +8,7 @@ import { useSession } from '@/app/ctx';
 
 
 export default function HomeScreen() {
-  const { signOut } = useSession();
+  const { session, signOut } = useSession();
 
   interface Post {
     _id: string,
@@ -78,14 +78,17 @@ export default function HomeScreen() {
           </Text>
         </View>
 
-        <Link
-          style={styles.link}
-          href={{
-            pathname: '/Post/[id]',
-            params: { id: "0" }
-          }}>
-          Create Post
-        </Link>
+        {
+          session?.IsAdmin &&
+          <Link
+            style={styles.link}
+            href={{
+              pathname: '/Post/[id]',
+              params: { id: "0" }
+            }}>
+            Create Post
+          </Link>
+        }
 
         <TextInput
           style={styles.input}
